@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     res.send("Hello from server router.js");
 });
 
-// Register Router -  Using async await 
+// Register Router
 router.post('/register', async (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
 

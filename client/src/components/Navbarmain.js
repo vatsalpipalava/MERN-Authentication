@@ -25,8 +25,8 @@ export default function Navbarmain() {
                 localStorage.removeItem('token');
             } else {
                 // Token is still valid, you can use it
-                const token = tokenData.token;
-                console.log("Token:", token);
+                // const token = tokenData.token;
+                // console.log("Token:", token);
                 setIsLoggedIn(true);
             }
         }
@@ -60,7 +60,7 @@ export default function Navbarmain() {
                 <NavbarContent className="sm:hidden pr-3" justify="center">
                     <NavbarBrand>
                         <Link className="font-bold text-inherit" href="/">
-                            ACME
+                            AUTH
                         </Link>
                     </NavbarBrand>
                 </NavbarContent>
@@ -68,7 +68,7 @@ export default function Navbarmain() {
                 <NavbarContent className="hidden sm:flex gap-4" justify="center">
                     <NavbarBrand>
                         <Link className="font-bold text-inherit" href="/">
-                            ACME
+                            AUTH
                         </Link>
                     </NavbarBrand>
                     <NavbarItem>
@@ -107,15 +107,6 @@ export default function Navbarmain() {
                                 <DropdownItem key="settings" href="/profile">
                                     My Settings
                                 </DropdownItem>
-                                {/* <DropdownItem key="team_settings">Team Settings</DropdownItem>
-                                <DropdownItem key="analytics">
-                                    Analytics
-                                </DropdownItem>
-                                <DropdownItem key="system">System</DropdownItem>
-                                <DropdownItem key="configurations">Configurations</DropdownItem>
-                                <DropdownItem key="help_and_feedback">
-                                    Help & Feedback
-                                </DropdownItem> */}
                                 <DropdownItem key="logout" color="danger" onClick={handleLogout}>
                                     Log Out
                                 </DropdownItem>

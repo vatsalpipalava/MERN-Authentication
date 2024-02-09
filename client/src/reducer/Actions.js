@@ -1,15 +1,6 @@
 import axios from 'axios';
 import { addUser } from "./Reducer";
 
-// export const addNewUser = (newUser) => async (dispatch) => { 
-//     try {
-//         const response = await axios.post('http://localhost:5000/register', newUser);
-//         dispatch(addUser(response.data));
-//     } catch (error) {
-//         console.error('Error adding user:', error);
-//     }
-// }
-
 export const addNewUser = (newUser, navigate) => async (dispatch) => {
     try {
         const response = await axios.post('http://localhost:5000/register', newUser);
@@ -42,20 +33,8 @@ export const loginUser = (lgUser, navigate) => async (dispatch) => {
         dispatch(addUser(response.data));
         window.alert("Login Successfully.");
 
-        // const token = response.data.token;
-        // console.log("Token:", token);
-
-        // // // Set cookie with token expiration for 30 days
-        // // const expirationDate = new Date();
-        // // expirationDate.setDate(expirationDate.getDate() + 30);
-        // // document.cookie = `token=${token}; expires=${expirationDate.toUTCString()}; path=/`;
-
-        // // Store token in sessionStorage
-        // sessionStorage.setItem('token', token);
-
         // local storage
         const token = response.data.token;
-        console.log("Token:", token);
 
         // Calculate expiration date 30 days from now
         const expirationDate = new Date();
@@ -70,8 +49,8 @@ export const loginUser = (lgUser, navigate) => async (dispatch) => {
         // Convert tokenData to a JSON string and store it in localStorage
         localStorage.setItem('token', JSON.stringify(tokenData));
 
-
         navigate("/");
+
     } catch (error) {
         if (error.response) {
             // Server responded with a status code other than 2xx

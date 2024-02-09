@@ -15,17 +15,7 @@ export const isLoggedIn = () => {
             // Token is still valid, you can use it
             const token = tokenData.token;
             console.log("Token:", token);
-       
         }
     }
-
     return tokenDataString !== null;
-
-
-    // if (token) {
-    //     console.log(token);
-    // } else {
-    //     console.log("session expire");
-    // }
-    // return token !== null; // Returns true if token exists, false otherwise
 };

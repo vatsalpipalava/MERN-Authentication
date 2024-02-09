@@ -24,7 +24,6 @@ export default function Login() {
 
     }
 
-
     return (
         <>
             <div className="flex flex-col md:flex-row w-full">
@@ -37,7 +36,6 @@ export default function Login() {
                 {/* Second Section */}
                 <div className="md:w-1/2 relative w-full h-screen flex items-center justify-center">
                     <div className="w-10/12 bg-white p-10 rounded-lg shadow-2xl md:shadow-none md:w-full">
-                        {/* <div className=""> */}
                         <div className="flex flex-1 flex-col justify-center w-full">
 
                             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -66,7 +64,6 @@ export default function Login() {
                                                 type="email"
                                                 value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
-                                                // autocomplete="email"
                                                 required
                                                 className="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             />
@@ -91,7 +88,6 @@ export default function Login() {
                                                 type="password"
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}
-                                                // autoComplete="current-password"
                                                 required
                                                 className="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             />
@@ -117,7 +113,6 @@ export default function Login() {
                                 </p>
                             </div>
                         </div>
-                        {/* </div> */}
                     </div>
                 </div>
             </div>
