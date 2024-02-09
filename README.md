@@ -4,7 +4,7 @@ Authantication using Redux-Toolkit and JWT, built with the MERN stack and Tailwi
 ## Installation and usage
 1) Clone this repository  
 ```
-git clone 
+git clone https://github.com/vatsalpipalava/MERN-Authentication-.git
 ```
 2) Install dependencies  
 ```
