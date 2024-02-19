@@ -3,7 +3,7 @@ import { Navbar, NavbarBrand, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, Navb
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar } from "@nextui-org/react";
 import { useNavigate } from 'react-router-dom';
 import { user, userLogout } from '../reducer/Actions';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Navbarmain() {
     const navigate = useNavigate();
@@ -15,12 +15,12 @@ export default function Navbarmain() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-    
+
                 const login = await dispatch(user());
 
-                if(login===false){
+                if (login === false) {
                     setIsLoggedIn(false);
-                }else{
+                } else {
                     setIsLoggedIn(true);
                 }
 
@@ -28,9 +28,11 @@ export default function Navbarmain() {
                 setIsLoggedIn(false);
             }
         };
-    
+
         fetchData();
-    });
+    }, [dispatch, navigate]);
+
+    const users = useSelector((state) => state.user.user);
 
     const handleLogout = async () => {
         await dispatch(userLogout());
@@ -70,16 +72,6 @@ export default function Navbarmain() {
                         </Link>
                     </NavbarBrand>
                     <NavbarItem>
-                        <Link color="foreground" href="#">
-                            Features
-                        </Link>
-                    </NavbarItem>
-                    <NavbarItem isActive>
-                        <Link href="#" aria-current="page">
-                            Customers
-                        </Link>
-                    </NavbarItem>
-                    <NavbarItem>
                         <Link color="foreground" href="/profile">
                             Profile
                         </Link>
@@ -100,10 +92,10 @@ export default function Navbarmain() {
                             <DropdownMenu aria-label="Profile Actions" variant="flat">
                                 <DropdownItem key="profile" className="h-14 gap-2">
                                     <p className="font-semibold">Signed in as</p>
-                                    {/* <p className="font-semibold">{userInfo.name}</p> */}
+                                    <p className="font-semibold">{users.email}</p>
                                 </DropdownItem>
                                 <DropdownItem key="settings" href="/profile">
-                                    My Settings
+                                    Profile
                                 </DropdownItem>
                                 <DropdownItem key="logout" color="danger" onClick={handleLogout}>
                                     Log Out

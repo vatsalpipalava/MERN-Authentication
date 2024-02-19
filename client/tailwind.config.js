@@ -1,4 +1,4 @@
-// /** @type {import('tailwindcss').Config} */
+/** @type {import('tailwindcss').Config} */
 const { nextui } = require("@nextui-org/react");
 module.exports = {
   content: [
