@@ -1,41 +1,79 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { user } from '../reducer/Actions';
 import { useNavigate } from 'react-router-dom';
-import { isLoggedIn } from '../components/cookie';
-import Navbarmain from '../components/Navbarmain';
-import Loader from '../components/Loader';
+import Loader from '../components/Loader'; // Update the path as needed
 
 const Profile = () => {
-    const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+
+    // useEffect(() => {
+    //     const timeout = setTimeout(() => {
+    //         setLoading(false);
+    //     }, 500);
+
+    //     dispatch(user(navigate));
+
+    //     return () => clearTimeout(timeout);
+    // }, [dispatch, navigate]);
+
+    // useEffect(() => {
+    //     try {
+    //         const timeout = setTimeout(() => {
+    //             setLoading(false);
+    //         }, 500);
+
+    //         dispatch(user());
+
+    //         return () => clearTimeout(timeout);
+    //     } catch (error) {
+    //         navigate('/login');
+    //     }
+    // })
 
     useEffect(() => {
-        // Simulate checking authentication status
-        setTimeout(() => {
-            // Redirect to login page if user is not logged in
-            if (!isLoggedIn()) {
+        const fetchData = async () => {
+            try {
+                const timeout = setTimeout(() => {
+                    setLoading(false);
+                }, 500);
+    
+                const login = await dispatch(user());
+
+                if(login===false){
+                    navigate('/login');
+                }
+    
+                return () => clearTimeout(timeout);
+            } catch (error) {
                 navigate('/login');
-            } else {
-                // User is authenticated, stop loading
-                setLoading(false);
             }
-        }, 1); // Adjust the timeout as needed - possiblely 1ms because i set 800ms for every link
-    }, [navigate]);
+        };
+    
+        fetchData();
+    });
+
+    const users = useSelector((state) => state.user.user);
 
     return (
         <div>
             {loading ? (
-                // Show spinner while loading
                 <Loader />
             ) : (
-                // Render profile content if user is logged in
-                <>
-                    <Navbarmain />
-                    <h1>Profile Page</h1>
-                    <p>This page is only accessible to logged-in users.</p>
-                </>
+                <div>
+                    <p>Username: {users.username}</p>
+                    <p>Email: {users.email}</p>
+                    {/* Add other user data fields here */}
+                </div>
             )}
         </div>
     );
 };
 
 export default Profile;
+
+
+
+

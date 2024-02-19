@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { addUser } from "./Reducer";
+import { addUser, removeUser, setUser } from "./Reducer";
 
 export const addNewUser = (newUser, navigate) => async (dispatch) => {
     try {
-        const response = await axios.post('http://localhost:5000/register', newUser);
+        const response = await axios.post('/register', newUser);
         dispatch(addUser(response.data));
         window.alert("User registered successfully.");
         navigate("/login");
@@ -29,27 +29,11 @@ export const addNewUser = (newUser, navigate) => async (dispatch) => {
 
 export const loginUser = (lgUser, navigate) => async (dispatch) => {
     try {
-        const response = await axios.post('http://localhost:5000/login', lgUser);
+        const response = await axios.post('/login', lgUser);
         dispatch(addUser(response.data));
         window.alert("Login Successfully.");
 
-        // local storage
-        const token = response.data.token;
-
-        // Calculate expiration date 30 days from now
-        const expirationDate = new Date();
-        expirationDate.setDate(expirationDate.getDate() + 30);
-
-        // Store token and expiration date in an object
-        const tokenData = {
-            token: token,
-            expirationDate: expirationDate.getTime() // Store expiration date as milliseconds
-        };
-
-        // Convert tokenData to a JSON string and store it in localStorage
-        localStorage.setItem('token', JSON.stringify(tokenData));
-
-        navigate("/");
+        navigate("/profile");
 
     } catch (error) {
         if (error.response) {
@@ -68,5 +52,27 @@ export const loginUser = (lgUser, navigate) => async (dispatch) => {
             // Something happened in setting up the request that triggered an error
             window.alert('Error adding user: ' + error.message);
         }
+    }
+}
+
+export const user = () => async (dispatch) => {
+    try {
+        const response = await axios.get('/profile', {
+            withCredentials: true  // Send cookies along with the request
+        });
+        dispatch(setUser(response.data));
+    } catch (error) {
+        // navigate('/login');
+        console.error('Error fetching items:', error);
+        return false;
+    }
+}
+
+export const userLogout = () => async (dispatch) => {
+    try {
+        const response = await axios.post('/logout');
+        dispatch(removeUser(response.data));
+    } catch (error) {
+        console.error('Not logout', error);
     }
 }

@@ -2,40 +2,38 @@ import React, { useState, useEffect } from "react";
 import { Navbar, NavbarBrand, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, NavbarContent, NavbarItem, Link, Button } from "@nextui-org/react";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar } from "@nextui-org/react";
 import { useNavigate } from 'react-router-dom';
+import { user, userLogout } from '../reducer/Actions';
+import { useDispatch } from "react-redux";
 
 export default function Navbarmain() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        // Check if a token exists in storage
-        // const token = sessionStorage.getItem("token");
-        const tokenDataString = localStorage.getItem('token');
+        const fetchData = async () => {
+            try {
+    
+                const login = await dispatch(user());
 
-        if (tokenDataString) {
-            // Parse tokenData JSON string to an object
-            const tokenData = JSON.parse(tokenDataString);
+                if(login===false){
+                    setIsLoggedIn(false);
+                }else{
+                    setIsLoggedIn(true);
+                }
 
-            // Check if the token has expired
-            const now = new Date().getTime();
-            if (now > tokenData.expirationDate) {
-                // Token has expired, remove it from localStorage
-                localStorage.removeItem('token');
-            } else {
-                // Token is still valid, you can use it
-                // const token = tokenData.token;
-                // console.log("Token:", token);
-                setIsLoggedIn(true);
+            } catch (error) {
+                setIsLoggedIn(false);
             }
-        }
+        };
+    
+        fetchData();
+    });
 
-    }, []);
-
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        // sessionStorage.removeItem("token");
+    const handleLogout = async () => {
+        await dispatch(userLogout());
         setIsLoggedIn(false);
         navigate('/');
     };

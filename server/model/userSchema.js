@@ -44,7 +44,7 @@ userSchema.methods.generateAuthToken = async function () {
         this.tokens = this.tokens.concat({ token: token });
         // For save token to database below comment enable it
         // await this.save();
-        console.log(token);
+        // console.log(token);
         return token;
     } catch (error) {
         console.log(error);
